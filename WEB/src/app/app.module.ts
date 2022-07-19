@@ -1,3 +1,4 @@
+import { HelperActiveService } from './services/helpers/helper-active';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -9,6 +10,11 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { RegistroComponent } from './components/registro/registro.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// Ng Bootstrap
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// Angular material
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -22,9 +28,12 @@ import { RegistroComponent } from './components/registro/registro.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    NgbModule,
+    MatTabsModule
   ],
-  providers: [],
+  providers: [HelperActiveService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

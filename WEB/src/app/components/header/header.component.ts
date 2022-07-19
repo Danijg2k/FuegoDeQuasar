@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HelperActiveService } from 'src/app/services/helpers/helper-active';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  opciones = ['Consultas', 'Registro', 'About'];
+  componentes = [
+    'ConsultasComponent',
+    'RegistroComponent',
+    'AboutComponent',
+  ];
 
-  ngOnInit(): void {
+  activeLink: string;
+
+  constructor(private helper: HelperActiveService) {
+    this.activeLink = '';
+  }
+
+  ngOnInit() {
+    this.helper.customMessage.subscribe(
+      (msg) => (this.activeLink = this.opciones[this.componentes.indexOf(msg)])
+    )
   }
 
 }

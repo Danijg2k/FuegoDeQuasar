@@ -1,0 +1,29 @@
+/* Central nav menu styles */
+.container-fluid {
+  background-color: #3C767A;
+}
+
+.mat-tab-nav-bar a {
+  color: rgb(189, 249, 253);
+  opacity: 1;
+}
+
+.mat-tab-nav-bar a:hover {
+  color: white;
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+  background: white;
+}
+
+
+
+/* Separation between header components */
+@media (max-width: 984px) {
+  .divsHeader:first-child{
+    width: 100%;
+  }
+  .divsHeader:not(:first-child){
+    margin-top: 20px;
+  }
+}

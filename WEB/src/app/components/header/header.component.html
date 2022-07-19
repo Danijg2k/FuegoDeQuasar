@@ -1,1 +1,32 @@
-<p>header works!</p>
+<div class="container-fluid">
+  <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-4 mb-4 border-bottom text-lg-end text-white">
+
+
+      <!-- COLUMNA 1 - TÍTULO -->
+      <div class="col-md-3 divsHeader">
+        <p class="d-flex justify-content-center align-items-center mb-0">
+          <span class="me-3">Fuego de Quasar</span>
+        </p>
+      </div>
+
+
+      <!-- TERCIO 2 - MENÚ NAVEGACIÓN -->
+      <div class="col-12 col-md-auto justify-content-center align-items-center divsHeader">
+        <div class="d-flex justify-content-center">
+          <nav mat-tab-nav-bar disableRipple="true" [tabPanel]="tabPanel">
+              <!-- OPCIÓN 1 -->
+              <a mat-tab-link routerLink="/" [active]="activeLink == 'Consultas'">Consulta</a>
+              <!-- OPCIÓN 2 -->
+              <a mat-tab-link routerLink="/registro" [active]="activeLink == 'Registro'">Registro de consultas</a>
+              <!-- OPCIÓN 3 -->
+              <a mat-tab-link routerLink="/about" [active]="activeLink == 'About'">Acerca de</a>
+          </nav>
+          <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+        </div>
+      </div>
+
+      <!-- TERCIO 3  -->
+      <div class="col-md-3"></div>
+
+  </header>
+</div>

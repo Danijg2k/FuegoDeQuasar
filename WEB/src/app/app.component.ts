@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { HelperActiveService } from './services/helpers/helper-active';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'WEB';
+
+  constructor(private helper: HelperActiveService, private _router: Router){}
+
+  public onRouterOutletActivate(event: any) {
+    this.helper.changeMessage(event.constructor.name);
+  }
+
+  displayHeadFoot(): boolean {
+    return this._router.url == '/notFound'
+      ? false
+      : true;
+  }
 }
