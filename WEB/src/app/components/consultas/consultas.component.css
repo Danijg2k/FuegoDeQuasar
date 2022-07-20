@@ -12,8 +12,14 @@
 }
 
 
-
-/* Styles for top div description */
-.descript {
-  color:#8B8E84;
+/* Separation between inputs (padding) */
+.mat-form-field-wrapper {
+  padding: 0px;
 }
+
+
+/* Styles for satellite divs */
+div p {
+  width: 100%;
+}
+
