@@ -1,0 +1,19 @@
+/* Styles for create button */
+.btnCrear {
+  background-color: #3e4551;
+}
+
+.btnCrear:hover {
+  background-color: black;
+}
+
+.btnCrear, .btnCrear:hover {
+  color: white;
+}
+
+
+
+/* Styles for top div description */
+.descript {
+  color:#8B8E84;
+}

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { HelperActiveService } from 'src/app/services/helpers/helper-active';
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
