@@ -1,32 +1,21 @@
-import { Satelites } from './../models/satelites.model';
+import { Satellites } from '../models/enviar/satellites.model';
 import { FormGroup } from '@angular/forms';
-import { Satelite } from './../models/satelite.model';
+
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Satellite } from '../models/enviar/satellite.model';
 
 @Injectable()
 export class SatelitesService {
   constructor(private http: HttpClient) {}
 
   post<T>(body:FormGroup<any>): Observable<HttpResponse<T>> {
-    let sat1 = new Satelite();
-    let sat2 = new Satelite();
-    let sat3 = new Satelite();
-    let conjunto = new Satelites();
-    // Sat 1
-    sat1.name = body.controls['Nombre1'].value;
-    sat1.distance = body.controls['Distancia1'].value;
-    sat1.message = body.controls['Mensaje1'].value.split(' ');
-    // Sat 2
-    sat2.name = body.controls['Nombre2'].value;
-    sat2.distance = body.controls['Distancia2'].value;
-    sat2.message = body.controls['Mensaje2'].value.split(' ');
-    // Sat 3
-    sat3.name = body.controls['Nombre3'].value;
-    sat3.distance = body.controls['Distancia3'].value;
-    sat3.message = body.controls['Mensaje3'].value.split(' ');
+    let sat1 = new Satellite(body.controls['Nombre1'].value, body.controls['Distancia1'].value, (body.controls['Mensaje1'].value).trim().split(' '));
+    let sat2 = new Satellite(body.controls['Nombre2'].value, body.controls['Distancia2'].value, (body.controls['Mensaje2'].value).trim().split(' '));
+    let sat3 = new Satellite(body.controls['Nombre3'].value, body.controls['Distancia3'].value, (body.controls['Mensaje3'].value).trim().split(' '));
+    let conjunto = new Satellites();
     // Conjunto
     conjunto.satellites = new Array(sat1,sat2,sat3);
 

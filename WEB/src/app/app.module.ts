@@ -1,15 +1,15 @@
-import { NaveService } from './services/nave.service';
+// Services
+import { RegistroService } from './services/registro.service';
 import { SatelitesService } from './services/satelites.service';
 import { SateliteService } from './services/satelite.service';
+import { HelperActiveService } from './services/helpers/helper-active';
+import { AppRoutingModule } from './app-routing.module';
 // Angular base
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-// Services
-import { HelperActiveService } from './services/helpers/helper-active';
-import { AppRoutingModule } from './app-routing.module';
 // Components
 import { AppComponent } from './app.component';
 import { AboutComponent } from './components/about/about.component';
@@ -43,7 +43,7 @@ import { MaterialExampleModule } from './../material.module';
     MaterialExampleModule,
     HttpClientModule,
   ],
-  providers: [HelperActiveService, SateliteService, SatelitesService, NaveService],
+  providers: [HelperActiveService, SateliteService, SatelitesService, RegistroService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

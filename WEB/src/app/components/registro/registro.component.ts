@@ -1,19 +1,55 @@
-import { Component, OnInit } from '@angular/core';
-import { NaveService } from 'src/app/services/nave.service';
+import {NestedTreeControl} from '@angular/cdk/tree';
+import {Component, Injectable} from '@angular/core';
+import {MatTreeNestedDataSource} from '@angular/material/tree';
+import {BehaviorSubject, Observable, of as observableOf} from 'rxjs';
+
+
+export interface FileNode {
+  children: FileNode[];
+  filename: string;
+  type: any;
+}
 
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.css']
 })
-export class RegistroComponent implements OnInit {
+export class RegistroComponent {
 
+  nestedTreeControl: NestedTreeControl<FileNode>;
+  nestedDataSource: MatTreeNestedDataSource<FileNode>;
+  dataChange: BehaviorSubject<FileNode[]> = new BehaviorSubject<FileNode[]>([]);
 
-  // TODO GET ALL Y REGISTRO
-  constructor(private _nave:NaveService) { }
+  constructor() {
+    this.nestedTreeControl = new NestedTreeControl<FileNode>(this._getChildren);
+    this.nestedDataSource = new MatTreeNestedDataSource();
 
-  ngOnInit(): void {
+    this.dataChange.subscribe(data => this.nestedDataSource.data = data);
 
+    this.dataChange.next([
+      {
+        filename: "folder",
+        type: "",
+        children: [
+          {
+            filename: "test3",
+            type: "exe",
+            children: [],
+          }
+        ],
+      },
+      {
+        filename: "test2",
+        type: "exe",
+        children: [],
+      },
+    ]);
   }
+
+  private _getChildren = (node: FileNode) => { return observableOf(node.children); };
+
+  hasNestedChild = (_: number, nodeData: FileNode) => {return !(nodeData.type); };
+
 
 }

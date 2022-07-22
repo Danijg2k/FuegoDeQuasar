@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IResponse } from 'src/app/models/iresponse';
-import { Nave } from 'src/app/models/nave.model';
+import { Nave } from 'src/app/models/recibir/nave.model';
 import { SatelitesService } from 'src/app/services/satelites.service';
 
 @Component({
@@ -129,13 +128,13 @@ export class ConsultasComponent implements OnInit {
     switch (sat) {
       // Analyze sat 1 fields
       case 1:
-        return (this.satForm.value.Nombre1 == '' || this.satForm.value.Distancia1 == null || this.satForm.value.Mensaje1 == '') ? true : false;
+        return (this.satForm.value.Nombre1 == '' || this.satForm.value.Distancia1 == '' || this.satForm.value.Distancia1 == null || this.satForm.value.Mensaje1 == '') ? true : false;
       // Analyze sat 2 fields
       case 2:
-        return (this.satForm.value.Nombre2 == '' || this.satForm.value.Distancia2 == null || this.satForm.value.Mensaje2 == '') ? true : false;
+        return (this.satForm.value.Nombre2 == '' || this.satForm.value.Distancia2 == '' || this.satForm.value.Distancia2 == null || this.satForm.value.Mensaje2 == '') ? true : false;
       // Analyze sat 3 fields
       case 3:
-        return (this.satForm.value.Nombre3 == '' || this.satForm.value.Distancia3 == null || this.satForm.value.Mensaje3 == '') ? true : false;
+        return (this.satForm.value.Nombre3 == '' || this.satForm.value.Distancia3 == '' || this.satForm.value.Distancia3 == null || this.satForm.value.Mensaje3 == '') ? true : false;
         // Default
       default:
         return true;
