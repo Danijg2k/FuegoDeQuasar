@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NaveService } from 'src/app/services/nave.service';
 
 @Component({
   selector: 'app-registro',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistroComponent implements OnInit {
 
-  constructor() { }
+
+  // TODO GET ALL Y REGISTRO
+  constructor(private _nave:NaveService) { }
 
   ngOnInit(): void {
+
   }
 
 }

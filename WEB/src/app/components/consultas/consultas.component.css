@@ -1,16 +1,13 @@
-/* Styles for create button */
-.btnCrear {
+/* Styles for triangulate button */
+.btnTriangular:enabled {
+  background-color: #91fcc1;
+  color: black;
+}
+
+.btnTriangular, .btnTriangular:hover {
   background-color: #3e4551;
-}
-
-.btnCrear:hover {
-  background-color: black;
-}
-
-.btnCrear, .btnCrear:hover {
   color: white;
 }
-
 
 /* Separation between inputs (padding) */
 .mat-form-field-wrapper {
@@ -18,8 +15,10 @@
 }
 
 
-/* Styles for satellite divs */
-div p {
-  width: 100%;
+/* Styles for charging bar */
+.progress-bar {
+  background-color: #91fcc1;
+  color: white;
 }
+
 

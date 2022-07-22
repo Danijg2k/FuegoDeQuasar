@@ -9,7 +9,7 @@
           <h2 class="py-3 fs-6">SATÉLITES REBELDES</h2>
 
           <div class="col ps-3 pe-3">
-          <!-- Columna 1 -->
+            <!-- Columna 1 -->
 
             <!-- SATÉLITE 1 -->
             <div class="pt-3 pb-3 mb-3 rounded-3" [ngStyle]="{'background-color': bgColorSat1}">
@@ -18,21 +18,21 @@
               <p>
                 <mat-form-field hideRequiredMarker appearance="outline" class="w-75">
                   <mat-label>Nombre</mat-label>
-                  <input matInput type="text" placeholder="Introduce nombre" formControlName="Nombre1" (keyup)="updateInputs(2)">
+                  <input matInput type="text" placeholder="Introduce nombre" formControlName="Nombre1" (keyup)="updateInputs(1)">
                 </mat-form-field>
               </p>
               <!-- Distancia a nave rebelde -->
               <p>
                 <mat-form-field hideRequiredMarker appearance="outline" class="w-75">
                   <mat-label>Distancia</mat-label>
-                  <input matInput type="number" placeholder="Introduce distancia a nave rebelde" formControlName="Distancia1" (keyup)="updateInputs(2)">
+                  <input matInput type="number" placeholder="Introduce distancia a nave rebelde" formControlName="Distancia1" (keyup)="updateInputs(1)">
                 </mat-form-field>
               </p>
               <!-- Mensaje que detecta el satélite -->
               <p>
                 <mat-form-field hideRequiredMarker appearance="outline" class="w-75">
                   <mat-label>Mensaje</mat-label>
-                  <input matInput type="text" placeholder="Introduce mensaje detectado" formControlName="Mensaje1" (keyup)="updateInputs(2)">
+                  <input matInput type="text" placeholder="Introduce mensaje detectado" formControlName="Mensaje1" (keyup)="updateInputs(1)">
                 </mat-form-field>
               </p>
             </div>
@@ -44,21 +44,21 @@
               <p>
                 <mat-form-field hideRequiredMarker appearance="outline" class="w-75">
                   <mat-label>Nombre</mat-label>
-                  <input matInput type="text" placeholder="Introduce nombre" formControlName="Nombre3">
+                  <input matInput type="text" placeholder="Introduce nombre" formControlName="Nombre3" (keyup)="updateInputs(3)">
                 </mat-form-field>
               </p>
               <!-- Distancia a nave rebelde -->
               <p>
                 <mat-form-field hideRequiredMarker appearance="outline" class="w-75">
                   <mat-label>Distancia</mat-label>
-                  <input matInput type="number" placeholder="Introduce distancia a nave rebelde" formControlName="Distancia3">
+                  <input matInput type="number" placeholder="Introduce distancia a nave rebelde" formControlName="Distancia3" (keyup)="updateInputs(3)">
                 </mat-form-field>
               </p>
               <!-- Mensaje que detecta el satélite -->
               <p>
                 <mat-form-field hideRequiredMarker appearance="outline" class="w-75">
                   <mat-label>Mensaje</mat-label>
-                  <input matInput type="text" placeholder="Introduce mensaje detectado" formControlName="Mensaje3">
+                  <input matInput type="text" placeholder="Introduce mensaje detectado" formControlName="Mensaje3" (keyup)="updateInputs(3)">
                 </mat-form-field>
               </p>
             </div>
@@ -66,7 +66,7 @@
           </div>
 
 
-          <div class="col ps-3 pe-3">
+          <div class="col ps-3 pe-3 flex-column">
             <!-- Columna 2 -->
 
             <!-- SATÉLITE 2 -->
@@ -76,42 +76,59 @@
               <p>
                 <mat-form-field hideRequiredMarker appearance="outline" class="w-75">
                   <mat-label>Nombre</mat-label>
-                  <input matInput type="text" placeholder="Introduce nombre" formControlName="Nombre2" (keyup)="updateInputs(3)">
+                  <input matInput type="text" placeholder="Introduce nombre" formControlName="Nombre2" (keyup)="updateInputs(2)">
                 </mat-form-field>
               </p>
               <!-- Distancia a nave rebelde -->
               <p>
                 <mat-form-field hideRequiredMarker appearance="outline" class="w-75">
                   <mat-label>Distancia</mat-label>
-                  <input matInput type="number" placeholder="Introduce distancia a nave rebelde" formControlName="Distancia2" (keyup)="updateInputs(3)">
+                  <input matInput type="number" placeholder="Introduce distancia a nave rebelde" formControlName="Distancia2" (keyup)="updateInputs(2)">
                 </mat-form-field>
               </p>
               <!-- Mensaje que detecta el satélite -->
               <p>
                 <mat-form-field hideRequiredMarker appearance="outline" class="w-75">
                   <mat-label>Mensaje</mat-label>
-                  <input matInput type="text" placeholder="Introduce mensaje detectado" formControlName="Mensaje2" (keyup)="updateInputs(3)">
+                  <input matInput type="text" placeholder="Introduce mensaje detectado" formControlName="Mensaje2" (keyup)="updateInputs(2)">
                 </mat-form-field>
               </p>
+            </div>
+
+
+            <!-- NAVE IMPERIAL (RESULTADO) -->
+            <div *ngIf="showResponse" class="pt-3 pb-3 mb-3 rounded-3 bg-info bg-opacity-25">
+              <!-- If error -->
+              <div *ngIf="isError">
+                <p>{{ errorMessage }}</p>
+              </div>
+              <!-- If all goes okay -->
+              <div *ngIf="!isError">
+                <p>Datos de la nave imperial</p>
+                <p>Mensaje: {{ resMensaje }}</p>
+                <p>Coordenada X: {{ resCoordX }}</p>
+                <p>Coordenada Y: {{ resCoordY }}</p>
+              </div>
+            </div>
+
           </div>
-
-
-          <!-- NAVE IMPERIAL (RESULTADO) -->
-          <div class="pt-3 pb-3 mb-3 rounded-3" [hidden]="satForm.value.Nombre1 == 'Pepe' ? true : false">
-            <p>Datos de la nave imperial</p>
-            <!-- TODO -->
-            <p>{{ satForm.value.Nombre1 }}</p>
-          </div>
-
-
         </div>
-      </div>
 
-      <!-- Triangular posición -->
-      <button class="w-75 btn btnCrear m-auto mt-3" type="submit" [disabled]="!satForm.valid">Triangular posición</button>
+        <div class="w-75 m-auto">
+          <!-- Barra de progreso -->
+          <div class="progress">
+            <div *ngIf="div1" class="progress-bar bg-success" role="progressbar" aria-label="Segment one" style="width: 33.33333%" aria-valuenow="33.33333" aria-valuemin="0" aria-valuemax="100">Satélite 1</div>
+            <div *ngIf="div2" class="progress-bar bg-success" role="progressbar" aria-label="Segment two" style="width: 33.33333%" aria-valuenow="33.33333" aria-valuemin="0" aria-valuemax="100">Satélite 2</div>
+            <div *ngIf="div3" class="progress-bar bg-success" role="progressbar" aria-label="Segment three" style="width: 33.33333%" aria-valuenow="33.33333" aria-valuemin="0" aria-valuemax="100">Satélite 3</div>
+          </div>
+          <!-- Triangular posición -->
+          <button class="w-100 btn btnTriangular mt-3" type="submit" [disabled]="!satForm.valid">Triangular posición</button>
+        </div>
+
 
       </form>
-
     </div>
+
+
   </div>
 </div>

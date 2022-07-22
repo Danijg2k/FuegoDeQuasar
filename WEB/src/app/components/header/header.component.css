@@ -16,14 +16,3 @@
   background: white;
 }
 
-
-
-/* Separation between header components */
-@media (max-width: 984px) {
-  .divsHeader:first-child{
-    width: 100%;
-  }
-  .divsHeader:not(:first-child){
-    margin-top: 20px;
-  }
-}

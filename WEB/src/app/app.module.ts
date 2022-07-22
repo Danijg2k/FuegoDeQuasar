@@ -1,8 +1,12 @@
+import { NaveService } from './services/nave.service';
+import { SatelitesService } from './services/satelites.service';
+import { SateliteService } from './services/satelite.service';
 // Angular base
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 // Services
 import { HelperActiveService } from './services/helpers/helper-active';
 import { AppRoutingModule } from './app-routing.module';
@@ -36,9 +40,10 @@ import { MaterialExampleModule } from './../material.module';
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialExampleModule
+    MaterialExampleModule,
+    HttpClientModule,
   ],
-  providers: [HelperActiveService],
+  providers: [HelperActiveService, SateliteService, SatelitesService, NaveService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

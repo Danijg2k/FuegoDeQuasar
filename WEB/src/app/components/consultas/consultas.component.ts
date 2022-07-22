@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IResponse } from 'src/app/models/iresponse';
+import { Nave } from 'src/app/models/nave.model';
+import { SatelitesService } from 'src/app/services/satelites.service';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -15,11 +18,21 @@ export class ConsultasComponent implements OnInit {
   bgColorSat1 = '#c9fce0';
   bgColorSat2: string;
   bgColorSat3: string;
+  // Vars for show/hide progress divs
+  div1: boolean;
+  div2: boolean;
+  div3: boolean;
+  // Show response
+  showResponse: boolean;
+  errorMessage: string;
+  isError: boolean;
+  // Response data
+  resMensaje: string;
+  resCoordX: number;
+  resCoordY: number;
 
 
-
-  constructor(private fb: FormBuilder) {
-
+  constructor(private fb: FormBuilder, private _satelites: SatelitesService) {
     this.satForm = this.fb.group({
       // Satélite 1
       Nombre1: ['', Validators.required],
@@ -53,36 +66,77 @@ export class ConsultasComponent implements OnInit {
 
     this.bgColorSat2 = '#d8d8d8';
     this.bgColorSat3 = '#d8d8d8';
+    this.div1 = false;
+    this.div2 = false;
+    this.div3 = false;
+    this.showResponse = false;
+    this.errorMessage = '';
+    this.isError = false;
+    this.resMensaje = '';
+    this.resCoordX = 0;
+    this.resCoordY = 0;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   // Check if Satellites have data
   updateInputs(sat:number) {
-    // If previous sat has an empty field
-    if(this.emptyInputs(sat-1)) {
-      // Disable actual sat fields
-      this.enableDisable(sat, 'disable');
-      // If sat 2 is empty, let modify sat 1
-      if(sat == 3){
-        this.enableDisable(1, 'enable');
+    if(this.emptyInputs(sat)) {
+      // Empty fields
+      switch(sat) {
+        case 1:
+          this.div1 = false;
+          //
+          this.disable(sat + 1);
+          break;
+        case 2:
+          this.div2 = false;
+          //
+          this.disable(sat + 1);
+          this.enable(sat - 1);
+          break;
+        case 3:
+          this.div3 = false;
+          //
+          this.enable(sat - 1);
+          break;
       }
     }else{
-      // Enable actual sat fields
-      this.enableDisable(sat, 'enable');
-      // If sat 2 is filled, don't let modify sat 1
-      if(sat == 3){
-        this.enableDisable(1, 'disable');
+      // All fields filled
+      switch(sat) {
+        case 1:
+          this.div1 = true;
+          //
+          this.enable(sat + 1);
+          break;
+        case 2:
+          this.div2 = true;
+          //
+          this.enable(sat + 1);
+          this.disable(sat - 1);
+          break;
+        case 3:
+          this.div3 = true;
+          //
+          this.disable(sat - 1);
+          break;
       }
     }
   }
 
   emptyInputs(sat:number) {
     switch (sat) {
+      // Analyze sat 1 fields
       case 1:
         return (this.satForm.value.Nombre1 == '' || this.satForm.value.Distancia1 == null || this.satForm.value.Mensaje1 == '') ? true : false;
+      // Analyze sat 2 fields
       case 2:
         return (this.satForm.value.Nombre2 == '' || this.satForm.value.Distancia2 == null || this.satForm.value.Mensaje2 == '') ? true : false;
+      // Analyze sat 3 fields
+      case 3:
+        return (this.satForm.value.Nombre3 == '' || this.satForm.value.Distancia3 == null || this.satForm.value.Mensaje3 == '') ? true : false;
+        // Default
       default:
         return true;
     }
@@ -90,34 +144,67 @@ export class ConsultasComponent implements OnInit {
 
 
   // Enable/disable inputs
-  enableDisable(sat:number, option:string) {
-    if(option == 'enable') {
-      this.satForm.controls[`Nombre${sat}`].enable();
-      this.satForm.controls[`Distancia${sat}`].enable();
-      this.satForm.controls[`Mensaje${sat}`].enable();
-      if(sat == 2) {
-        this.bgColorSat2 = '#c9fce0';
-      }
-      if(sat == 3) {
-        this.bgColorSat3 = '#c9fce0';
-      }
+  enable(sat:number) {
+    this.satForm.controls[`Nombre${sat}`].enable();
+    this.satForm.controls[`Distancia${sat}`].enable();
+    this.satForm.controls[`Mensaje${sat}`].enable();
+    // Change background of sat 1
+    if(sat == 1) {
+      this.bgColorSat1 = '#c9fce0';
     }
-    else if(option == 'disable') {
-      this.satForm.controls[`Nombre${sat}`].disable();
-      this.satForm.controls[`Distancia${sat}`].disable();
-      this.satForm.controls[`Mensaje${sat}`].disable();
-      if(sat == 2) {
-        this.bgColorSat2 = '#d8d8d8';
-      }
-      if(sat == 3) {
-        this.bgColorSat3 = '#d8d8d8';
-      }
+    // Change background of sat 2
+    if(sat == 2) {
+      this.bgColorSat2 = '#c9fce0';
+    }
+    // Change background of sat 3
+    if(sat == 3) {
+      this.bgColorSat3 = '#c9fce0';
     }
   }
+
+  disable(sat:number) {
+    this.satForm.controls[`Nombre${sat}`].disable();
+    this.satForm.controls[`Distancia${sat}`].disable();
+    this.satForm.controls[`Mensaje${sat}`].disable();
+    // Change background of sat 1
+    if(sat == 1) {
+      this.bgColorSat1 = '#d8d8d8';
+    }
+    // Change background of sat 2
+    if(sat == 2) {
+      this.bgColorSat2 = '#d8d8d8';
+    }
+    // Change background of sat 3
+    if(sat == 3) {
+      this.bgColorSat3 = '#d8d8d8';
+    }
+  }
+
 
   // Send response
   triangularNave() {
-
+    // Post data and get response
+    this._satelites.post<Nave>(this.satForm).subscribe(
+      (res) => {
+        if(res.body != null) {
+          // Prepare data for showing
+          this.resMensaje = res.body.mensaje;
+          this.resCoordX = res.body.posicion.x;
+          this.resCoordY = res.body.posicion.y;
+          // Show data
+          this.showResponse = true;
+        }
+      },
+      (error) => {
+        // Prepare error for showing
+        this.errorMessage = error;
+        // Show error
+        this.isError = true;
+        this.showResponse = true;
+      }
+    );
   }
+
+
 
 }
