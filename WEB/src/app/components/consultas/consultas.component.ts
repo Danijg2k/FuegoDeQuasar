@@ -35,30 +35,15 @@ export class ConsultasComponent implements OnInit {
     this.satForm = this.fb.group({
       // Satélite 1
       Nombre1: ['', Validators.required],
-      Distancia1: [
-        '',
-        Validators.compose([
-          Validators.required
-        ]),
-      ],
+      Distancia1: ['',Validators.required],
       Mensaje1: ['', Validators.required],
       // Satélite 2
       Nombre2: [{disabled:true , value:''}, Validators.required],
-      Distancia2: [
-        {disabled:true , value:''},
-        Validators.compose([
-          Validators.required
-        ]),
-      ],
+      Distancia2: [{disabled:true , value:''}, Validators.required],
       Mensaje2: [{disabled:true , value:''}, Validators.required],
       // Satélite 2
       Nombre3: [{disabled:true , value:''}, Validators.required],
-      Distancia3: [
-        {disabled:true , value:''},
-        Validators.compose([
-          Validators.required
-        ]),
-      ],
+      Distancia3: [{disabled:true , value:''}, Validators.required],
       Mensaje3: [{disabled:true , value:''}, Validators.required]
       //
     });
@@ -180,6 +165,44 @@ export class ConsultasComponent implements OnInit {
   }
 
 
+  // Omit keyboard input if there are two '_' or ' ' joined
+  omitKeyboardInput(event: any, input: any) {
+    var inputText:string;
+    // Get actual text of input (before actual key is added)
+    switch(input) {
+      case 'n1':
+        inputText = this.satForm.value.Nombre1;
+        break;
+      case 'm1':
+        inputText = this.satForm.value.Mensaje1;
+        break;
+      case 'n2':
+        inputText = this.satForm.value.Nombre2;
+        break;
+      case 'm2':
+        inputText = this.satForm.value.Mensaje2;
+        break;
+      case 'n3':
+        inputText = this.satForm.value.Nombre3;
+        break;
+      case 'm3':
+        inputText = this.satForm.value.Mensaje3;
+        break;
+      default:
+        inputText = '';
+        break;
+    }
+    // Check wich key was pressed
+    var key = String.fromCharCode(event.charCode);
+    // If key pressed is '_' or ' ' and last one is the same -> omit keyboard input
+    if(key == ' ' || key == '_') {
+      if(inputText.slice(-1) == key){
+        event.preventDefault();
+      }
+    }
+  }
+
+
   // Send response
   triangularNave() {
     // Post data and get response
@@ -202,6 +225,7 @@ export class ConsultasComponent implements OnInit {
         this.showResponse = true;
       }
     );
+
   }
 
 

@@ -18,7 +18,7 @@
               <p>
                 <mat-form-field hideRequiredMarker appearance="outline" class="w-75">
                   <mat-label>Nombre</mat-label>
-                  <input matInput type="text" placeholder="Introduce nombre" formControlName="Nombre1" (keyup)="updateInputs(1)">
+                  <input matInput type="text" placeholder="Introduce nombre" formControlName="Nombre1" (keypress)="omitKeyboardInput($event, 'n1')" (keyup)="updateInputs(1)">
                 </mat-form-field>
               </p>
               <!-- Distancia a nave rebelde -->
@@ -32,7 +32,7 @@
               <p>
                 <mat-form-field hideRequiredMarker appearance="outline" class="w-75">
                   <mat-label>Mensaje</mat-label>
-                  <input matInput type="text" placeholder="Introduce mensaje detectado" formControlName="Mensaje1" (keyup)="updateInputs(1)">
+                  <input matInput type="text" placeholder="Introduce mensaje detectado" formControlName="Mensaje1" (keypress)="omitKeyboardInput($event, 'm1')" (keyup)="updateInputs(1)">
                 </mat-form-field>
               </p>
             </div>
@@ -44,7 +44,7 @@
               <p>
                 <mat-form-field hideRequiredMarker appearance="outline" class="w-75">
                   <mat-label>Nombre</mat-label>
-                  <input matInput type="text" placeholder="Introduce nombre" formControlName="Nombre3" (keyup)="updateInputs(3)">
+                  <input matInput type="text" placeholder="Introduce nombre" formControlName="Nombre3" (keypress)="omitKeyboardInput($event, 'n3')" (keyup)="updateInputs(3)">
                 </mat-form-field>
               </p>
               <!-- Distancia a nave rebelde -->
@@ -58,7 +58,7 @@
               <p>
                 <mat-form-field hideRequiredMarker appearance="outline" class="w-75">
                   <mat-label>Mensaje</mat-label>
-                  <input matInput type="text" placeholder="Introduce mensaje detectado" formControlName="Mensaje3" (keyup)="updateInputs(3)">
+                  <input matInput type="text" placeholder="Introduce mensaje detectado" formControlName="Mensaje3" (keypress)="omitKeyboardInput($event, 'm3')" (keyup)="updateInputs(3)">
                 </mat-form-field>
               </p>
             </div>
@@ -76,7 +76,7 @@
               <p>
                 <mat-form-field hideRequiredMarker appearance="outline" class="w-75">
                   <mat-label>Nombre</mat-label>
-                  <input matInput type="text" placeholder="Introduce nombre" formControlName="Nombre2" (keyup)="updateInputs(2)">
+                  <input matInput type="text" placeholder="Introduce nombre" formControlName="Nombre2" (keypress)="omitKeyboardInput($event, 'n2')" (keyup)="updateInputs(2)">
                 </mat-form-field>
               </p>
               <!-- Distancia a nave rebelde -->
@@ -90,7 +90,7 @@
               <p>
                 <mat-form-field hideRequiredMarker appearance="outline" class="w-75">
                   <mat-label>Mensaje</mat-label>
-                  <input matInput type="text" placeholder="Introduce mensaje detectado" formControlName="Mensaje2" (keyup)="updateInputs(2)">
+                  <input matInput type="text" placeholder="Introduce mensaje detectado" formControlName="Mensaje2" (keypress)="omitKeyboardInput($event, 'm2')" (keyup)="updateInputs(2)">
                 </mat-form-field>
               </p>
             </div>
