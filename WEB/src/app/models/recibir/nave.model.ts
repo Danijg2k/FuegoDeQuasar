@@ -9,4 +9,5 @@ export class Nave {
     this.mensaje = '';
     this.posicion = new Posicion();
   }
+
 }

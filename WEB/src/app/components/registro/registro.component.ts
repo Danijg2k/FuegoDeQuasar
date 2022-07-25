@@ -1,55 +1,31 @@
-import {NestedTreeControl} from '@angular/cdk/tree';
-import {Component, Injectable} from '@angular/core';
-import {MatTreeNestedDataSource} from '@angular/material/tree';
-import {BehaviorSubject, Observable, of as observableOf} from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Registro } from 'src/app/models/recibir/registro.model';
+import { RegistroService } from 'src/app/services/registro.service';
 
-
-export interface FileNode {
-  children: FileNode[];
-  filename: string;
-  type: any;
-}
 
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
   styleUrls: ['./registro.component.css']
 })
-export class RegistroComponent {
+export class RegistroComponent implements OnInit {
 
-  nestedTreeControl: NestedTreeControl<FileNode>;
-  nestedDataSource: MatTreeNestedDataSource<FileNode>;
-  dataChange: BehaviorSubject<FileNode[]> = new BehaviorSubject<FileNode[]>([]);
+  registros: Registro[];
+  dataSource: Registro[];
 
-  constructor() {
-    this.nestedTreeControl = new NestedTreeControl<FileNode>(this._getChildren);
-    this.nestedDataSource = new MatTreeNestedDataSource();
-
-    this.dataChange.subscribe(data => this.nestedDataSource.data = data);
-
-    this.dataChange.next([
-      {
-        filename: "folder",
-        type: "",
-        children: [
-          {
-            filename: "test3",
-            type: "exe",
-            children: [],
-          }
-        ],
-      },
-      {
-        filename: "test2",
-        type: "exe",
-        children: [],
-      },
-    ]);
+  constructor(private _registro: RegistroService) {
+    this.registros = [];
+    this.dataSource = [];
   }
 
-  private _getChildren = (node: FileNode) => { return observableOf(node.children); };
+  ngOnInit() {
+    this._registro.getAll().subscribe((x) => (this.registros = x) && this.loadData());
+  }
 
-  hasNestedChild = (_: number, nodeData: FileNode) => {return !(nodeData.type); };
+  displayedColumns: string[] = ['id','sat1Nombre','sat1Distancia','sat1Mensaje','sat1Posicion','sat2Nombre','sat2Distancia','sat2Mensaje','sat2Posicion','sat3Nombre','sat3Distancia','sat3Mensaje','sat3Posicion','respuestaMensaje','respuestaPosicion'];
 
+  loadData() {
+    this.dataSource = this.registros;
+  }
 
 }
