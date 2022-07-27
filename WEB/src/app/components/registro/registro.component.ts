@@ -9,7 +9,7 @@ import { RegistroService } from 'src/app/services/registro.service';
 })
 export class RegistroComponent implements OnInit {
 
-  registros: any = [];
+  registros: Registro[];
   dataSource: Registro[];
 
   constructor(private _registro: RegistroService) {
@@ -18,10 +18,13 @@ export class RegistroComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._registro.getAll().subscribe((x) => (this.registros = x) && this.loadData());
-    // this._registro.getAllAxios().then(resp => {
-    //   this.registros = resp.data;
-    // });
+    // this._registro.getAll().subscribe((x) => (this.registros = x) && this.loadData());
+
+    // Obtener todos los registros, y cargar resultados en la tabla
+    this._registro.getAllAxios().then(resp => {
+      this.registros = resp;
+      this.loadData();
+    });
   }
 
   displayedColumns: string[] = ['id','sat1Nombre','sat1Distancia','sat1Mensaje','sat1Posicion','sat2Nombre','sat2Distancia','sat2Mensaje','sat2Posicion','sat3Nombre','sat3Distancia','sat3Mensaje','sat3Posicion','respuestaMensaje','respuestaPosicion'];

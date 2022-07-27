@@ -205,17 +205,37 @@ export class ConsultasComponent implements OnInit {
 
   // Send response
   triangularNave() {
-    // Post data and get response
-    this._satelites.post<Nave>(this.satForm).subscribe(
-      (res) => {
-        if(res.body != null) {
-          // Prepare data for showing
-          this.resMensaje = res.body.mensaje;
-          this.resCoordX = res.body.posicion.x;
-          this.resCoordY = res.body.posicion.y;
-          // Show data
-          this.showResponse = true;
-        }
+    // Post data (Http)
+
+    // this._satelites.post<Nave>(this.satForm).subscribe(
+    //   (res) => {
+    //     if(res.body != null) {
+    //       // Prepare data for showing
+    //       this.resMensaje = res.body.mensaje;
+    //       this.resCoordX = res.body.posicion.x;
+    //       this.resCoordY = res.body.posicion.y;
+    //       // Show data
+    //       this.showResponse = true;
+    //     }
+    //   },
+    //   (error) => {
+    //     // Prepare error for showing
+    //     this.errorMessage = error;
+    //     // Show error
+    //     this.isError = true;
+    //     this.showResponse = true;
+    //   }
+    // );
+
+
+    // Post data (Axios)
+    this._satelites.postAxios(this.satForm).then(resp => {
+      this.resMensaje = resp.mensaje;
+      this.resCoordX = resp.posicion.x;
+      this.resCoordY = resp.posicion.y;
+      // Show data
+      this.showResponse = true;
+
       },
       (error) => {
         // Prepare error for showing

@@ -9,6 +9,8 @@ import { Satellite } from '../models/enviar/satellite.model';
 export class SateliteService {
   constructor(private http: HttpClient) {}
 
+
+  // Enviar satélites de uno en uno - post split (Http)
   postSplit<T>(body:FormGroup<any>): Observable<HttpResponse<T>> {
     let bodyData = new Satellite();
     bodyData.name = body.controls['Nombre1'].value;
